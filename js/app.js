@@ -82,7 +82,7 @@ white.addEventListener('click', function(event) {
 function ShowData(nameSede, nameProm) {
   enrollmentDesert(nameSede, nameProm);
   calculatePromoter(nameSede, nameProm);
-
+  calculateStudentsTargetObjetc(nameSede, nameProm);
   calculateStudentSatisfaccion(nameSede, nameProm);
   calculateTeacherRating(nameSede, nameProm);
   calculateJediMasterRating(nameSede, nameProm);
@@ -114,7 +114,57 @@ function enrollmentDesert(nameSede, nameProm) {
 // -------------------------------------------------------------------------------------------------------------------------------------
 // para calcular estudiantes que cumplen el objetivo
 function calculateStudentsTargetObjetc(nameSede, nameProm) {
+  var students = data[nameSede][nameProm].students;
+  // Alumnas que pasaron el 70%
+  var countPastTarget = 0;
+  var countPastTargetTech = 0;
+  var countPastTargetHse = 0;
+  // lista con notas de los 4 sprints de las alumnas
+  // var allStudentsNotasTotalArr = [];
+  // variables para la sumatoria de las notas tech + hse
+  var notaTotal = 0;
+  var notaTechTotal = 0;
+  var notaHseTotal = 0;
+  for (var i = 0; i < students.length; i++) {
+    // if (notaTotal !== 0) {
+    //   // allStudentsNotasTotalArr.push(notaTotal);
+    // }
+    notaTechTotal = 0;
+    notaHseTotal = 0;
+    if (students[i]['sprints'] !== undefined) {
+      for (var j = 0; j < students[i]['sprints'].length; j++) {
+        var notaTech = students[i]['sprints'][j]['score']['tech'];
+        var notaHse = students[i]['sprints'][j]['score']['hse'];
+        // sumatoria de las notas tech de todos los sprints
+        notaTechTotal += notaTech;
+        // sumatoria de las notas hse de todos los sprints
+        notaHseTotal += notaHse;
+        // la meta es superar 70% en tech y en hse
+        if ((notaTechTotal / students[i]['sprints'].length) > 1260 && (notaHseTotal / students[i]['sprints'].length) > 940) {
+          countPastTarget++;
+        }
+        // META DEL 70% POR AREAS
+        // la meta es superar 70% en tech
+        if ((notaTechTotal / students[i]['sprints'].length) > 1260) {
+          countPastTargetTech++;
+        }
+        // la meta es superar 70% en hse
+        if ((notaHseTotal / students[i]['sprints'].length) > 940) {
+          countPastTargetHse++;
+        }
+      }
+    }
+  }
+  var countPastTargetPorc = Math.round((countPastTarget * 100) / (students.length)) + '%';
+  var countPastTargetTechPorc = Math.round((countPastTargetTech * 100) / (students.length)) + '%';
+  var countPastTargetHsePorc = Math.round((countPastTargetHse * 100) / (students.length)) + '%';
 
+  document.getElementById('target').innerHTML = countPastTarget;
+  document.getElementById('target-percent').innerHTML = countPastTargetPorc;
+  document.getElementById('tech').innerHTML = countPastTargetTech;
+  document.getElementById('tech-percent').innerHTML = countPastTargetTechPorc;
+  document.getElementById('hse').innerHTML = countPastTargetHse;
+  document.getElementById('hse-percent').innerHTML = countPastTargetHsePorc;
 }
 
 
