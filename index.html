@@ -19,8 +19,9 @@
     <!-- Menu de navegacion -->
     <nav>
       <div class="nav-menu bold">
-        <h2  id="nameshow"> AREQUIPA </h2>
+        <h2  id="nameshow"> SELECCIONAR SEDE </h2>
         <select id="sedes" class="select bold" name="">
+          <option id="empty">DEFAULT</option>
         </select>
         <ul>
           <li id="overview">OVERVIEW</li>
@@ -80,11 +81,7 @@
           <p class="bold font-s inline-b">TECH-SKILLS</p>
           <select id="tech-skills" class="overall" name="">
                 <option value="">Overall (cumulative)</option>
-                <option value="1">SPRINT 1</option>
-                <option value="2">SPRINT 2</option>
-                <option value="3">SPRINT 3</option>
-                <option value="4">SPRINT 4</option>
-              </select>
+          </select>
           <div class="gray-content">
             <div class="gray-box inline-b">
               <p id="tech"class="font-s bold">90</p>
@@ -92,7 +89,7 @@
             </div>
             <div class="gray-box inline-b">
               <p id="tech-percent"class="font-s bold color-green">62</p>
-              <p>% OF TOTAL (135)</p>
+              <p id= "total_2">% OF TOTAL (135)</p>
             </div>
           </div>
           <img id="graph-img"src="assets/images/rectangular-graphic.png" alt="rectangular-graphic">
@@ -107,11 +104,7 @@
           <p class="bold font-s inline-b">LIFE SKILLS</p>
           <select id="hse-skills"class="sprints" name="">
                 <option value="">latest Sprint (S4)</option>
-                <option value="1">SPRINT 1</option>
-                <option value="2">SPRINT 2</option>
-                <option value="3">SPRINT 3</option>
-                <option value="4">SPRINT 4</option>
-              </select>
+          </select>
           <div class="gray-content">
             <div class="gray-box inline-b">
               <p id="hse" class="bold font-s">80</p>

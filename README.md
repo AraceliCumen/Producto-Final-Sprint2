@@ -1,10 +1,21 @@
-# Producto Final: Data Dashboard
+# Data Dashboard
 
 * **Objetivo:** _Crear un Data Dashboard para las Training Managers de Laboratoria. Con este les ayudarames a optimizar su tiempo y establecer un orden para poder manejar toda la data de las alumnas que participan del bootcamp._
 * **Unidades en práctica** _Todos los temas vistos en los dos primeros Sprints_
 * **Herramientas:** _HTML,CSS Y Javascript_
 
 ***
+
+## Colaboradoras
+
+Integrantes del squad 8BM:
+
+    - Lilliam Haro
+    - Nataly Cortez
+    - Araceli Cueva
+    - Pamela Anayhuaman
+    - Andrea Vasquéz
+    - Adriana Rojas
 
 ## Informacion que debe proporcionar el programa
 
@@ -35,3 +46,15 @@ Nota: En la etapa de diseño de la experiencia del producto, nos dimos cuenta qu
 2.Además, la proactividad (siempre de las TMs) hace que el siguiente requerimiento adicional sea muy útil:
 
 Tener un botón que permita indicar que una estudiante ha salido del Bootcamp y alterar los totales afectados por este cambio.
+
+## Sketchs
+
+![](assets/images/sketch1.JPG)
+![](assets/images/sketch2.JPG)
+![](assets/images/sketch3 .JPG)
+
+## Vista previa
+
+![](assets/images/screen.JPG)
+![](assets/images/screentwo.JPG)
+![](assets/images/screenthree.JPG)

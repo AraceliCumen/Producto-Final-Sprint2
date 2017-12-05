@@ -3,6 +3,9 @@ var dataNameSedes = Object.keys(data);
 var valuesofData = Object.values(data);
 window.addEventListener('load', function() {
   var selectSede = document.getElementById('sedes');
+  var selectSprintTech = document.getElementById('tech-skills');
+  var selectSprintHse = document.getElementById('hse-skills');
+
   // -------------------------------------------------------------------------------------------------------------------------------------
   // Para Jalar data automaticamente
   for (var i = 0; i < dataNameSedes.length; i++) {
@@ -37,6 +40,16 @@ window.addEventListener('load', function() {
     var nameProm = selectedValue.split('_')[1];
     document.getElementById('nameshow').innerText = nameSede;
     ShowData(nameSede, nameProm);
+
+    selectSprintTech.addEventListener('change', function(event) {
+      var selectSprintforTech = this.value;
+      techSkills(nameSede, nameProm, selectSprintforTech);
+    });
+    
+    selectSprintHse.addEventListener('change', function(event) {
+      var selectSprintforEHS = this.value;
+      techSkills(nameSede, nameProm, selectSprintforEHS);
+    });
   });
 });
 
@@ -83,10 +96,10 @@ function ShowData(nameSede, nameProm) {
   enrollmentDesert(nameSede, nameProm);
   calculatePromoter(nameSede, nameProm);
   calculateStudentsTargetObjetc(nameSede, nameProm);
+  showSprints(nameSede, nameProm);
   calculateStudentSatisfaccion(nameSede, nameProm);
   calculateTeacherRating(nameSede, nameProm);
   calculateJediMasterRating(nameSede, nameProm);
-
   // drawCurrently(percentStudentsActiveforProm, percentStudentsInactiveforProm);
   // function calculateStudentsTargetObjetc
 }
@@ -218,6 +231,98 @@ function calculateStudentSatisfaccion(nameSede, nameProm) {
   // console.log(numStudentCumple);
   document.getElementById('satisfaction').innerHTML = total;
 }
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+// Función para llenar dinámicamente los sprints
+function showSprints(nameSede, nameProm) {
+  var techSkills = document.getElementById('tech-skills');
+  var hseSkills = document.getElementById('hse-skills');
+  techSkills.textContent = '';
+  hseSkills.textContent = '';
+  for (var i = 0; i < data[nameSede][nameProm]['students'].length; i++) {
+    var Sprints = data[nameSede][nameProm]['students'][i].sprints;
+    // console.log(numberSprints);
+    techSkills.textContent = '';
+    hseSkills.textContent = '';
+    for (var j = 0; j < Sprints.length; j++) {
+      if (Sprints[j] !== undefined) {
+        // Creamos un elemento para mostrar las promociones
+        var optionSprintfortech = document.createElement('option');
+        var optionSprintforhse = document.createElement('option');
+        // le asignamos el valor a mostrar
+        optionSprintfortech.label = 'Sprint ' + Sprints[j].number;
+        optionSprintfortech.value = 'Sprint ' + Sprints[j].number;
+        optionSprintforhse.label = 'Sprint ' + Sprints[j].number;
+        optionSprintforhse.value = 'Sprint ' + Sprints[j].number;
+        // le asignamos donde lo va a mostrar
+        techSkills.appendChild(optionSprintfortech);
+        hseSkills.appendChild(optionSprintforhse);
+      }
+    }
+  }
+}
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+// para mostrar los tech skill
+function techSkills(nameSede, nameProm, selectSprintforTech) {
+  document.getElementById('tech').textContent = '';
+  document.getElementById('tech-percent').textContent = '';
+  document.getElementById('total_2').textContent = '';
+  var arrayStudents = data[nameSede][nameProm].students;
+  var notasTechSprint = [];
+  var pastTargetperSprint = 0;
+  for (var i = 0; i < arrayStudents.length; i++) {
+    if (arrayStudents[i]['sprints'] !== undefined) {
+      for (var j = 0; j < arrayStudents[i]['sprints'].length; j++) {
+        var notaTechSprint = arrayStudents[i]['sprints'][j]['score']['tech'];
+        // console.log(notaTechSprint);
+        notasTechSprint.push(notaTechSprint);
+        if (selectSprintforTech === 'Sprint ' + j) {
+          for (var cont = 0 ; cont < notasTechSprint.length ; cont++) {
+            if (notasTechSprint[cont] > 1260) {
+              pastTargetperSprint++;
+            }
+          }
+        }
+      }
+    }
+  }
+  var pastTargetperSprintPorc = Math.round((pastTargetperSprint * 100) / (students.length)) + '%';
+  document.getElementById('tech').innerHTML = pastTargetperSprint;
+  document.getElementById('tech-percent').innerHTML = pastTargetperSprintPorc;
+  document.getElementById('total_2').innerHTML = '% OF TOTAL ' + '(' + arrayStudents.length + ')';
+}
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+// para mostrar los hse skill
+function techSkills(nameSede, nameProm, selectSprintforEHS) {
+  var arrayStudents = data[nameSede][nameProm].students;
+  var notasHseSprint = [];
+  var pastTargetperSprintHse = 0;
+  for (var i = 0; i < students.length; i++) {
+    if (students[i]['sprints'] !== undefined) {
+      for (var j = 0; j < students[i]['sprints'].length; j++) {
+        var notaHseSprint = students[i]['sprints'][j]['score']['hse'];
+        if (j === selectSprintforEHS) {
+          notasHseSprint.push(notaHseSprint);
+        }
+      }
+    }
+  }
+
+
+  if (selectSprintforEHS === j) {
+    for (var i = 0 ;i < notasHseSprint1Arr.length ;i++) {
+      if (notasHseSprint[i] > 940) {
+        pastTargetperSprintHse++;
+      }
+    }
+  }
+  var pastTargetperSprintHsePorc = Math.round((pastTargetperSprintHse * 100) / (students.length)) + '%';
+  document.getElementById('hse').innerHTML = pastTargetperSprintHse;
+  document.getElementById('hse-percent').innerHTML = pastTargetperSprintHsePorc;
+}  
+
 
 // -------------------------------------------------------------------------------------------------------------------------------------
 // para sumar elementos de un array
