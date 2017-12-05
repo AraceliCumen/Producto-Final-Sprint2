@@ -242,25 +242,30 @@ function showSprints(nameSede, nameProm) {
   for (var i = 0; i < data[nameSede][nameProm]['students'].length; i++) {
     var Sprints = data[nameSede][nameProm]['students'][i].sprints;
     // console.log(numberSprints);
-    techSkills.textContent = '';
-    hseSkills.textContent = '';
-    for (var j = 0; j < Sprints.length; j++) {
-      if (Sprints[j] !== undefined) {
-        // Creamos un elemento para mostrar las promociones
-        var optionSprintfortech = document.createElement('option');
-        var optionSprintforhse = document.createElement('option');
-        // le asignamos el valor a mostrar
-        optionSprintfortech.label = 'Sprint ' + Sprints[j].number;
-        optionSprintfortech.value = 'Sprint ' + Sprints[j].number;
-        optionSprintforhse.label = 'Sprint ' + Sprints[j].number;
-        optionSprintforhse.value = 'Sprint ' + Sprints[j].number;
-        // le asignamos donde lo va a mostrar
-        techSkills.appendChild(optionSprintfortech);
-        hseSkills.appendChild(optionSprintforhse);
+    // console.log(Sprints.length);
+    if (Sprints.length > 0) {
+      techSkills.textContent = '';
+      hseSkills.textContent = '';
+      for (var j = 0; j < Sprints.length; j++) {
+        if (Sprints[j] !== undefined) {
+          // debugger;
+          // Creamos un elemento para mostrar las promociones
+          var optionSprintfortech = document.createElement('option');
+          var optionSprintforhse = document.createElement('option');
+          // le asignamos el valor a mostrar
+          optionSprintfortech.label = 'Sprint ' + Sprints[j].number;
+          optionSprintfortech.value = 'Sprint ' + Sprints[j].number;
+          optionSprintforhse.label = 'Sprint ' + Sprints[j].number;
+          optionSprintforhse.value = 'Sprint ' + Sprints[j].number;
+          // le asignamos donde lo va a mostrar
+          techSkills.appendChild(optionSprintfortech);
+          hseSkills.appendChild(optionSprintforhse);
+        }
       }
     }
   }
 }
+
 
 // -------------------------------------------------------------------------------------------------------------------------------------
 // para mostrar los tech skill
